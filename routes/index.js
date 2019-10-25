@@ -3,12 +3,13 @@ const router = express.Router();
 
 const database = [];
 
-// /api
+//Root level method to test
 router.get('/', function(req, res, next) {
   res.json({ message: 'root' });
 });
 
-router.post('/addtodo', function(req, res, next) {
+// Add a todo item to our "database"
+router.post('/addtodo', function(req, res) {
   database.push(req.body);
   console.log(database);
   res.json({ success: true });

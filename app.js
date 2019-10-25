@@ -4,16 +4,19 @@ const logger = require('./logger');
 
 const app = express();
 
+// Define app-level middleware. Middlewares are executed synchronously.
+
 app.use(logger);
 app.use(express.json());
 
-const indexRoute = require('./routes');
-app.use('/api', indexRoute);
-
+// Middleware function that just logs the request body
 app.use((req, res, next) => {
-  console.log(req.body);
-  res.send('Test');
-  res.end();
+  console.log("Request Body: ", req.body);
+  next();
 });
+
+// Use the express routes in routes/index.js
+const indexRoute = require('./routes');
+app.use('/', indexRoute);
 
 module.exports = app;
